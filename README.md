@@ -8,7 +8,7 @@ Preview: http://acm.nenu.edu.cn:8080/BoardWeb/
 License
 =============
 GPLv3
-Additional requirement: you may not remove the links to acm.nenu.edu.cn and winguse.com.
+Additional requirement: you may not remove the links to http://acm.nenu.edu.cn and http://winguse.com.
 You are welcome not to remove some of the last line of the code.
 
 For More
