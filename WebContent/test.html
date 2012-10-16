@@ -1,0 +1,21 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>Insert title here</title>
+</head>
+<body>
+<script type="text/javascript">
+function Foo(){
+	var prt="private";
+	this.pub="public";
+	this.test=function(){
+		alert(this.pub);
+		alert(prt);//可以访问
+	}; 
+}
+var foo=new Foo();
+foo.test();
+</script>
+</body>
+</html>

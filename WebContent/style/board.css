@@ -1,0 +1,284 @@
+@CHARSET "UTF-8";
+/**
+ * @author winguse
+ */
+/*
+IE8以下的，帮他们生成一些：
+	\tbackground-color: rgba\((.+),.+\)(.*);
+	\tbackground-color: rgb\(\1\)\2;\n\0
+*/
+*{
+}
+body,html {
+	padding: 0;
+	margin: 0;
+}
+body{
+	background:url('../img/bodybg.jpg');
+}
+#board {
+	z-index:1;
+	margin:30px 0px 30px 0px;
+}
+#board-header,#board-footer{
+	z-index:1000;
+	position: fixed;
+	width:100%;
+	background-color: #f7f7f7;
+	left:0;
+	line-height: 30px;
+}
+#board-header{
+	top:0;
+	font-size: 24px;
+}
+#board-footer{
+	bottom:0;
+	font-size: 16px;
+}
+
+#board .line:nth-child(odd) > .cell:nth-child(even),
+#board .line:nth-child(even) > .cell:nth-child(odd){
+	opacity:0.85;/**//**/
+	background-color: rgba(255,255,255,0.0);
+}
+#board>.line:HOVER{
+	opacity:1;
+}
+#board>.line>.cell{
+	background-color: rgba(230,230,230,0.4);
+}
+#board>.line{
+	opacity:0.8;
+}
+.line {
+	clear:both;
+	height: 30px;
+	line-height: 30px;
+}
+.lineonmove{
+	position: absolute;
+	width:100%;
+	height:40px;
+	opacity: 1!important;
+	background-color: #fff;
+	z-index: 1999;
+	border-color:rgba(82, 168, 236, 0.8);
+}
+.lineonmove .cell{
+	font-size: 22px;
+	line-height: 40px;
+	height:40px;
+	color:rgb(0,62,143);
+}
+.tourismTeam{
+	
+}
+.cell {
+	font-weight: bold;
+/*/
+	text-shadow: 0 -2px 3px rgba(0, 0, 0, 0.95),2px 0 3px rgba(0, 0, 0, 0.95),-2px 0 3px rgba(0, 0, 0, 0.95),0 2px 3px rgba(0, 0, 0, 0.95);
+	color:#FFF;/**/
+	overflow: hidden;
+	text-align:center;
+	float:left;
+	height: 30px;
+	position:relative;
+	cursor: default;
+}
+.sub-cell{
+	position:relative;
+	width:100%;
+	height:100%;
+	top:-00%;
+}
+.cell-small{
+	width:5%;	
+}
+.cell-big{
+	width:30%;
+	cursor: pointer;
+}
+.pedding{
+	background-color: rgb(255,128,0) !important;
+	background-color: rgba(255,128,0,0.7) !important;
+}
+.yes{
+	background-color: rgb(64,255,64) !important;
+	background-color: rgba(64,255,64,0.7) !important;
+}
+.firstblood{
+	background-color: rgb(0,128,0) !important;
+	background-color: rgba(0,128,0,0.8) !important;
+}
+.no{
+	background-color: rgb(255,0,0) !important;
+	background-color: rgba(255,0,0,0.7) !important;
+}
+#message{
+	position: fixed;
+	top:20%;
+	margin:0 10%;
+	padding-top:20px;
+	background-color: yellow;
+	opacity:0.8;
+	font-size: 24px;
+	text-align:center;
+	width:80%;
+	z-index: 10000;
+	border-radius: 10px;
+}
+.girlsTeam>.cell-big>*{
+	background-color: rgb(255,150,150);
+	background-color: rgba(255,150,150,0.4);
+}
+.gold{
+	background-color: rgb(249,217,35);
+	background-color: rgba(249,217,35,0.5);
+}
+.sliver{
+	background-color: rgb(153,153,153);
+	background-color: rgba(153,153,153,0.5);
+}
+.bronze{
+	background-color: rgb(136,84,24);
+	background-color: rgba(136,84,24,0.5);
+}
+#setttingButton:HOVER{
+	opacity: 0.25;
+}
+#setttingButton{
+	height:80px;
+	text-align: center;
+	position: fixed;
+	right:10px;
+	bottom: 30px;
+	opacity: 0.15;
+	z-index: 520;/*舒啸*/
+}
+#setttingButton>small{
+	font-size: 12px;
+}
+#setttingButton>span{
+	font-size: 80px;
+	cursor: pointer;	
+}
+#settings{
+	top:20%;
+	left:0;
+	position: fixed;
+	margin:0 10%;
+	display: none;
+	width:80%;
+	background-color: #fff;
+	background-color: rgba(255,255,255,0.95);
+	border-radius: 10px;
+	border-width:10px;
+	border-style:solid;
+	border-color:rgb(82, 82, 82);
+	border-color:rgba(82, 82, 82, 0.7);
+	padding-bottom: 20px;
+	z-index: 5201314;
+}
+#settings>h3{
+	text-align: center;
+}
+#settings>p{
+	width:90%;
+	margin:5px auto;
+}
+#settings>small{
+	margin: 10px;
+	font-size: 12px;
+	color: #CCC;
+	display: block;
+	position: absolute;
+	right: 0;
+	bottom: 0;
+}
+.button{
+	text-align: center;
+	text-shadow: 0 -1px 0 rgba(0, 0, 0, 0.25);
+	color: white;
+	background-color: #08D;
+	background-position: 0 -15px;
+	display: inline-block;
+	margin-bottom: 0;
+	cursor: pointer;
+	background-image: linear-gradient(top, #08C, #05C);
+	background-repeat: repeat-x;
+	border-color: rgba(0, 0, 0, 0.1) rgba(0, 0, 0, 0.1) rgba(0, 0, 0, 0.25);
+	border-radius: 4px;
+}
+a {
+	color: #08C;
+	text-decoration: none;
+}
+a:hover {
+	color: #005580;
+	text-decoration: underline;
+}
+#movingTeamInfo{
+	display:none;
+	top:45%;
+	left:0;
+	position: fixed;
+	margin:0 5%;
+	width:90%;
+	background-color: #fff;
+	background-color: rgba(255,255,255,0.9);
+	border-radius: 10px;
+	border-width:10px;
+	border-style:solid;
+	border-color:rgb(82, 82, 82);
+	border-color:rgba(82, 82, 82, 0.7);
+	z-index: 2000;
+}
+#movingTeamInfo>div{
+	float:left;
+	margin-left:5%;
+}
+#movingTeamInfo>.teamName{
+	width:45%;
+	text-align: center;
+}
+#movingTeamInfo>.teamName>h3{
+	font-size: 42px;
+}
+#movingTeamInfo>.teamName>h3>small{
+	font-size: 30px;
+}
+#movingTeamInfo>.teamName>p{
+	font-size: 32px;
+	font-weight:bold;
+	color:red;
+}
+#movingTeamInfo>.teamDetial{
+	width:45%;
+}
+#movingTeamInfo>.teamDetial dd{
+	margin-bottom: 10px;
+}
+#movingTeamInfo>.teamDetial .school{
+	font-size: 28px;
+	font-weight: bold;
+}
+small{
+	color:#777;
+}
+.yescount{
+	color:#1D1;
+}
+.allcount{
+	color:#D22;
+}
+.problem{
+	cursor: pointer;-webkit-touch-callout: none;
+}
+*{
+	-webkit-user-select: none;
+	-khtml-user-select: none;
+	-moz-user-select: none;
+	-ms-user-select: none;
+	user-select: none;
+}
