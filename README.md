@@ -3,6 +3,14 @@ NENULiveBoard
 
 A Live ACM/ICPC Onsite Live Board Solution. Perfectly run during 2012 ACM-ICPC Asia Regional Contest (Changchun Site).
 
+This project is base on object oriented Javascript and J2EE programing.
+
+By using long connection AJAX to fetch newly changed status (JSON) from backend to provide all users the live time score board of the ACM-ICPC on site contest.
+
+By using some features of CSS3 and HTML5, users will get a very well exprences of display the score board.
+
+Animation is also available for showing the changes of the ranking.
+
 Preview: http://acm.nenu.edu.cn:8080/BoardWeb/
 
 License
