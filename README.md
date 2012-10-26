@@ -22,3 +22,5 @@ You are welcome not to remove some of the last line of the code.
 For More
 =============
 Read system_guide.docx (or pdf)
+
+video description (Chinese): http://v.youku.com/v_show/id_XNDY3MTQwNzUy.html
