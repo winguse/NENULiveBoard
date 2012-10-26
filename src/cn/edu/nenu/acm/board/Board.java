@@ -27,6 +27,14 @@ public class Board {
 	public final static int RUNSTATUS_NO = 3;
 	public final static int RUNSTATUS_DELETED = -1;
 	public final static int RUNSTATUS_UNDEFINE = -2;
+	
+	/**
+	 * 考虑ClearPedding的时候，时间会比较长，
+	 * 如果那个时候刚刚好又唤醒了轮询进程，那么很可能一次clearPedding的操作会变成两次查询材质的，
+	 * 现在用这个信号量解决这个问题。
+	 */
+	public final static Object dbMutex=new Object();
+	
 	/**
 	 * 数据库链接，使用连接池
 	 */

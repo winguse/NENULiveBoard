@@ -25,7 +25,7 @@ public class Login extends HttpServlet {
 	 * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		if("shuxiao".equals(request.getParameter("password"))){
+		if("shuxiao#520".equals(request.getParameter("password"))){
 			request.getSession().setAttribute("login", "login");
 		}
 	}

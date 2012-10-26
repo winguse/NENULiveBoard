@@ -28,63 +28,66 @@ public class DBStatusFetcher {
 	 * @return
 	 * @throws SQLException
 	 */
-	public static ArrayList<ArrayList<Object>> getStatusArray(long since,boolean detailStatus)
-			throws SQLException {
-		ArrayList<ArrayList<Object>> status = new ArrayList<ArrayList<Object>>();
-		Connection conn = null;
-		try {
-			conn = Board.getDataBaseConnection();
-			PreparedStatement pstat = conn
-					.prepareStatement("SELECT "
-							+ "rId,rTId,rPId,rLanguage,rStatus,rTime,rNumber,rJudgementName,rDescription,rLastUpdateTime "
-			//这里面改成严格大于了，所以，任何两次更新必须大于1毫秒，否则会有一定概率不正确，当然对于榜来说，这样的是严格小概率事件
-							+ "FROM Runs WHERE rLastUpdateTime > ? ORDER BY rLastUpdateTime ASC");
-			pstat.setLong(1, since);
-			pstat.execute();
-			ResultSet rs = pstat.getResultSet();
-			while (rs.next()) {
-				ArrayList<Object> s = new ArrayList<Object>();
-				s.add(rs.getInt("rId"));
-				s.add(rs.getInt("rTId"));
-				s.add(rs.getInt("rPId"));
-				if(detailStatus){
-					s.add(rs.getString("rLanguage"));
-				}else{
-					s.add("");
-				}
-				if (rs.getLong("rTime") > freezeTime&&!"F".equals(rs.getString("rDescription")))
-					s.add(RUNSTATUS_PEDDING);
-				else
-					s.add(rs.getInt("rStatus"));
-				s.add(rs.getLong("rTime"));
-				s.add(rs.getInt("rNumber"));
-				if(detailStatus){
-					if (rs.getLong("rTime") > freezeTime)
-						s.add("Freezed");
+	public static ArrayList<ArrayList<Object>> getStatusArray(long since,
+			boolean detailStatus) throws SQLException {
+		synchronized (Board.dbMutex) {
+			ArrayList<ArrayList<Object>> status = new ArrayList<ArrayList<Object>>();
+			Connection conn = null;
+			try {
+				conn = Board.getDataBaseConnection();
+				PreparedStatement pstat = conn
+						.prepareStatement("SELECT "
+								+ "rId,rTId,rPId,rLanguage,rStatus,rTime,rNumber,rJudgementName,rDescription,rLastUpdateTime "
+								// 这里面改成严格大于了，所以，任何两次更新必须大于1毫秒，否则会有一定概率不正确，当然对于榜来说，这样的是严格小概率事件
+								+ "FROM Runs WHERE rLastUpdateTime > ? ORDER BY rLastUpdateTime ASC");
+				pstat.setLong(1, since);
+				pstat.execute();
+				ResultSet rs = pstat.getResultSet();
+				while (rs.next()) {
+					ArrayList<Object> s = new ArrayList<Object>();
+					s.add(rs.getInt("rId"));
+					s.add(rs.getInt("rTId"));
+					s.add(rs.getInt("rPId"));
+					if (detailStatus) {
+						s.add(rs.getString("rLanguage"));
+					} else {
+						s.add("");
+					}
+					if (rs.getLong("rTime") > freezeTime
+							&& !"F".equals(rs.getString("rDescription")))
+						s.add(RUNSTATUS_PEDDING);
 					else
-						s.add(rs.getString("rJudgementName"));
-				}else{
-					s.add("");
+						s.add(rs.getInt("rStatus"));
+					s.add(rs.getLong("rTime"));
+					s.add(rs.getInt("rNumber"));
+					if (detailStatus) {
+						if (rs.getLong("rTime") > freezeTime)
+							s.add("Freezed");
+						else
+							s.add(rs.getString("rJudgementName"));
+					} else {
+						s.add("");
+					}
+					if (detailStatus) {
+						s.add(rs.getString("rDescription"));
+					} else {
+						s.add("");
+					}
+					s.add(rs.getLong("rLastUpdateTime"));
+					if (rLastUpdateTime < rs.getLong("rLastUpdateTime")) {
+						rLastUpdateTime = rs.getLong("rLastUpdateTime");
+					}
+					status.add(s);
 				}
-				if(detailStatus){
-					s.add(rs.getString("rDescription"));
-				}else{
-					s.add("");
-				}
-				s.add(rs.getLong("rLastUpdateTime"));
-				if (rLastUpdateTime < rs.getLong("rLastUpdateTime")) {
-					rLastUpdateTime = rs.getLong("rLastUpdateTime");
-				}
-				status.add(s);
+				rs.close();
+				pstat.close();
+			} catch (SQLException e) {
+				throw e;
 			}
-			rs.close();
-			pstat.close();
-		} catch (SQLException e) {
-			throw e;
+			if (conn != null && !conn.isClosed())
+				conn.close();
+			return status;
 		}
-		if (conn != null && !conn.isClosed())
-			conn.close();
-		return status;
 	}
 
 	/**
@@ -119,6 +122,7 @@ public class DBStatusFetcher {
 	/**
 	 * 2012-10-10 21:00 发现bug了，由于两个服务时间不同步，会造成缓存堆积或者缓存无法换取，
 	 * 所以这里面不应该信任数据库服务器时间的时间戳，应该根据数据特性选择。
+	 * 
 	 * @return 数据库中，最近一次访问找到的最大的时间戳
 	 */
 	public static long getLastUpdateTime() {
