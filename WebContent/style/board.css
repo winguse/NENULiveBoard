@@ -63,7 +63,7 @@ body{
 	opacity: 1!important;
 	background-color: #fff;
 	z-index: 1999;
-	border-color:rgba(82, 168, 236, 0.8);
+	box-shadow: 0px 0px 50px 5px #fff;
 }
 .lineonmove .cell{
 	font-size: 22px;
@@ -136,13 +136,25 @@ body{
 	background-color: rgb(249,217,35);
 	background-color: rgba(249,217,35,0.5);
 }
+.lineonmove.gold{
+	background-color: rgb(249,217,35);
+	box-shadow: 0px 0px 50px 5px rgb(249,217,35);
+}
 .sliver{
 	background-color: rgb(153,153,153);
 	background-color: rgba(153,153,153,0.5);
 }
+.lineonmove.sliver{
+	background-color: rgb(153,153,153);
+	box-shadow: 0px 0px 50px 5px rgb(153,153,153);
+}
 .bronze{
 	background-color: rgb(136,84,24);
 	background-color: rgba(136,84,24,0.5);
+}
+.lineonmove.bronze{
+	background-color: rgb(136,84,24);
+	box-shadow: 0px 0px 50px 5px rgb(136,84,24);
 }
 #setttingButton:HOVER{
 	opacity: 0.25;

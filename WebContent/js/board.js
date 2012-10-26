@@ -5,7 +5,7 @@
  * @author Winguse
  */
 "use strict";
-var PER_PENALTY = 20,ANIMATE_TIME=5000,MAX_ANIMATE_QUE=15,GOLD=17,SLIVER=52,BRONZE=103;
+var PER_PENALTY = 20,ANIMATE_TIME=5000,MAX_ANIMATE_QUE=15,MAX_QUE_POP_TO=0,GOLD=17,SLIVER=52,BRONZE=103;
 /**
  * Status
  * 状态宏定义，话说到现在，我都不知道怎样在js里面写静态变量，有同学告诉我么？答案：写到prototype里面，虽然不是常量，但是是静态，但是是全局的。
@@ -371,11 +371,7 @@ Board.prototype.moveTeam=function (moveInfo,noAnimate){
 		$from.before("<div id='tmp"+fromTid+toTid+"'></div>");
 		$to.before("<div id='tmp"+toTid+fromTid+"'></div>");
 		var $fromTmp=$("#tmp"+fromTid+toTid),$toTmp=$("#tmp"+toTid+fromTid),height=$to.height();
-		var $scroll,delta=$(window).height()/4;
-		if($.browser.mozilla||$.browser.msie)
-			$scroll=$("html");
-		else
-			$scroll=$("body");
+		var $scroll=I.$scroll,delta=$(window).height()/4;
 		$fromTmp.css({height:height+"px"});
 		$toTmp.css({height:"0px"});
 		var toTop=$toTmp.offset().top;
@@ -462,6 +458,11 @@ function Board() {
 	this.stop=false;
 	this.problemList = Problem.prototype.staticList;
 	this.needUpdatedTeams=new Array();
+	if($.browser.mozilla||$.browser.msie)
+		this.$scroll=$("html");
+	else
+		this.$scroll=$("body");
+	
 	var arrTid=new Array();
 	for ( var tid in pc2_teams.teams) {// 引用全局了
 		var cs_team = cs_boardinfo.teams[pc2_teams.teams[tid]];// ContestService里面传过来的查询键是displayname
@@ -552,8 +553,8 @@ function Board() {
 		tp.nextTeam.updatePos();//调整的是下一个节点，就能保证访问到所有的节点
 	}
 	//}*/
-	var I=this,$body=$("body"),scrollTop=0;
-	var bodyHeight=$body.height(),scrollDelta=30,minScroll=$(window).height()/3;
+	var I=this,scrollTop=0;
+	var bodyHeight=I.$scroll.height(),scrollDelta=30,minScroll=$(window).height()/3;
 	//AUTO TOGGLE DISPLAYNAME MODULE
 	setInterval(
 	function(){
@@ -567,7 +568,7 @@ function Board() {
 	setInterval(
 		function(){
 			if(!I.autoScroll||!I.moveFinshed)return;
-			$body.scrollTop(scrollTop);
+			I.$scroll.scrollTop(scrollTop);
 			scrollTop+=scrollDelta;
 			if(scrollTop-minScroll>bodyHeight||scrollTop<-minScroll){
 				scrollDelta=-scrollDelta;
@@ -776,7 +777,7 @@ Board.prototype.queAnimate=function(){
 			log("一次性更新了"+I.needUpdatedTeams.length+"个DOM对象。");
 			if(I.animateOn)
 				ShowMessage("<br/><h3>(＞﹏＜) </h3><p>瓦咔咔，这一次要播放的动画太多了，所以偷懒木有动画啦…… </p><br/>",5000);
-			while(I.needUpdatedTeams.length>0){
+			while(I.needUpdatedTeams.length>MAX_QUE_POP_TO){
 				I.moveTeam(I.needUpdatedTeams.shift(),true);//TODO
 			}
 			I.moveFinshed=true;
