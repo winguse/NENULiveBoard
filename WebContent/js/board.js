@@ -226,6 +226,7 @@ function Team(team, tid, school) {
 	this.accepted = 0;
 	this.penalty = 0;
 	this.lastAccptedTime = -1;
+	this.lastAcceptedRunId = -1;
 	this.submited = false;
 	this.girlsTeam = false;
 	if (team == null){
@@ -287,6 +288,8 @@ Team.prototype.updateStatus = function(status) {
 			this.accepted++;
 			if (this.lastAccptedTime < problem.acceptedTime)
 				this.lastAccptedTime = problem.acceptedTime;
+			if(this.lastAcceptedRunId < problem.acceptedRid)
+				this.lastAcceptedRunId = problem.acceptedRid;
 			this.penalty += problem.getPenalty()+problem.acceptedTime;
 		}
 	}
@@ -422,8 +425,8 @@ function TeamCompare(a, b) {
 		return a.accepted>b.accepted?-1:1;
 	if (a.penalty != b.penalty)// 第二关键字：罚时少的优先
 		return a.penalty < b.penalty?-1:1;
-	if (a.lastAccptedTime != b.lastAccptedTime)// 第三关键字：最后通过时间早的优先
-		return a.lastAccptedTime < b.lastAccptedTime?-1:1;
+	if (a.lastAcceptedRunId != b.lastAcceptedRunId)// 第三关键字：最后通过时间早的优先
+		return a.lastAcceptedRunId < b.lastAcceptedRunId?-1:1;
 	if (a.submited != b.submited)// 第四关键字：有提交的优先
 		return a.submited ? -1 : 1;
 	if(a.girlsTeam!=b.girlsTeam)//第五关键字，女士优先
