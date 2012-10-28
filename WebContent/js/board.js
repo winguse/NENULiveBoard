@@ -282,6 +282,7 @@ Team.prototype.updateStatus = function(status) {
 	this.accepted = 0;
 	this.penalty = 0;
 	this.lastAccptedTime = -1;
+	this.lastAcceptedRunId = -1;//这里面标记为初始值-1的原因是，考虑rejuege的 情况，所有数据都可能发生变化的。
 	for ( var i = 0; i < this.problemList.length; i++) {
 		var problem = this.problemList[i];
 		if (problem.isAccepted()) {
