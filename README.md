@@ -24,3 +24,31 @@ For More
 Read system_guide.docx (or pdf)
 
 video description (Chinese): http://v.youku.com/v_show/id_XNDY3MTQwNzUy.html
+
+Exporting Data to ICPC
+=============
+
+Firstly, download "Export empty template" in the standing tab of you site.
+Secondly, replace that xml file using regex expression, from
+  .+?ReservationID="(.+?)".+?TeamName="(.+?)".+?>
+to
+  "\2":"\1",
+Then, edit the data to json format, and you will get something like this:
+
+var tn2id={"+18远古遗愿":"161940",
+"ALPC_ACOnFingers":"161713",
+"ALPC_Tour_de_Force":"161714",...};
+
+Thridly, paste the the code above and the code following into Chrome javascript console,
+you will get the final exporting xml.
+
+var result="";
+for(var t=board.headTeam.nextTeam;t!=board.tailTeam;t=t.nextTeam){
+  if(t.en=="BHU_sec")t.en="BHU_Sec";
+	if(tn2id[t.en.xss()]==undefined){
+		if(t.offical)
+			console.log("error:"+t.en.xss());
+		continue;
+	}
+	result+='<Standing LastProblemTime="'+t.lastAccptedTime+'" ProblemsSolved="'+t.accepted+'" Rank="'+t.teamRank+'" ReservationID="'+tn2id[t.en.xss()]+'" TeamName="'+t.en.xss()+'" TotalTime="'+t.penalty+'"/>';
+}
