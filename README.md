@@ -11,7 +11,7 @@ By using some features of CSS3 and HTML5, users will get a very well exprences o
 
 Animation is also available for showing the changes of the ranking.
 
-Preview: http://acm.nenu.edu.cn:8080/BoardWeb/
+Preview: http://acm.nenu.edu.cn/BoardWeb/
 
 License
 =============
