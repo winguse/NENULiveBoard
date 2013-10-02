@@ -16,7 +16,8 @@ Preview: http://acm.nenu.edu.cn/BoardWeb/
 License
 =============
 GPLv3
-Additional requirement: you are welcome not to remove the links to http://acm.nenu.edu.cn and http://winguse.com.
+
+Additional requirement (optional): you are welcome not to remove the links to http://acm.nenu.edu.cn and http://winguse.com.
 You are also welcome not to remove some of the last line of the code.
 
 For More
@@ -41,7 +42,7 @@ var tn2id={"+18远古遗愿":"161940",
 
 Thridly, paste the the code above and the code following into Chrome javascript console,
 you will get the final exporting xml.
-
+<pre><code>
 var result="";
 for(var t=board.headTeam.nextTeam;t!=board.tailTeam;t=t.nextTeam){
   if(t.en=="BHU_sec")t.en="BHU_Sec";
@@ -52,3 +53,4 @@ for(var t=board.headTeam.nextTeam;t!=board.tailTeam;t=t.nextTeam){
 	}
 	result+='<Standing LastProblemTime="'+t.lastAccptedTime+'" ProblemsSolved="'+t.accepted+'" Rank="'+t.teamRank+'" ReservationID="'+tn2id[t.en.xss()]+'" TeamName="'+t.en.xss()+'" TotalTime="'+t.penalty+'"/>';
 }
+</code></pre>
