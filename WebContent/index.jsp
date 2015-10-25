@@ -11,7 +11,7 @@ session.removeAttribute("since");
 <head>
 <meta charset="UTF-8">
 <meta name="author" content="Winguse" />
-<title>2012 ACM-ICPC Asia Regional Contest (Changchun Site) On Site Realtime Ranking</title>
+<title>2015 ACM-ICPC Asia Regional Contest (Changchun Site) On Site Realtime Ranking</title>
 <link rel="stylesheet" type="text/css" href="style/board.css" title="default" />
 </head>
 <body>
@@ -47,7 +47,7 @@ session.removeAttribute("since");
 		<input class="button" type="button" value="Close" onclick="board.closeTeamInfo();"/>
 	</p>
 </div>
-<div id="setttingButton"><small>&copy;2012 by <a href="http://winguse.com">wingus<i title="For舒啸(兔子)">e</i></a>, <a href="http://acm.nenu.edu.cn">nenu acm</a>. good luck to all contestants!</small><span title="Board Settings" onclick="$('#settings').fadeIn(500)">✌</span></div>
+<div id="setttingButton"><small>&copy;2015 by <a href="http://winguse.com">wingus<i title="For舒啸(兔子)">e</i></a>, <a href="http://acm.nenu.edu.cn">nenu acm</a>. good luck to all contestants!</small><span title="Board Settings" onclick="$('#settings').fadeIn(500)">✌</span></div>
 <div id="settings">
 	<h3>Board Display Settings</h3>
 	<p>	
@@ -74,7 +74,7 @@ session.removeAttribute("since");
 		<label for="setLongConnection">Enable Long Connection:</label>
 		<input id="setLongConnection" type="checkbox" onchange="board.setLongConnection(this.checked)"/>
 	</p>
-	<small>&copy;2012 By <a href="http://winguse.com">Wingus<span title="iloveshuxiao">e</span></a>, <a href="http://acm.nenu.edu.cn">NENU ACM</a>. Good Luck to All Contestants! Enjoy it.</small>
+	<small>&copy;2015 By <a href="http://winguse.com">Wingus<span title="iloveshuxiao">e</span></a>, <a href="http://acm.nenu.edu.cn">NENU ACM</a>. Good Luck to All Contestants! Enjoy it.</small>
 	<p align="center">
 		<input id="settingClose" class="button" type="button" value="Close Settings Dialog" onclick="$('#settings').fadeOut(1000)"/>
 	</p>
@@ -117,7 +117,7 @@ $(".cell-big").click(function(){
 <%}%>
 board.update();
 </script>
-<script type="text/javascript">
+<!-- script type="text/javascript">
 
   var _gaq = _gaq || [];
   _gaq.push(['_setAccount', 'UA-7801267-8']);
@@ -128,7 +128,7 @@ board.update();
     ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';
     var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s);
   })();
-</script>
+</script-->
 </body>
 </html>
 <!-- winguse love shuxiao. -->

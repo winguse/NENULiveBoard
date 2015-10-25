@@ -96,12 +96,16 @@ body{
 	width:5%;	
 }
 .cell-big{
-	width:30%;
+	width:20%;
 	cursor: pointer;
 }
 .pedding{
 	background-color: rgb(255,128,0) !important;
 	background-color: rgba(255,128,0,0.7) !important;
+}
+.judged{
+	background-color: rgb(205,78,0) !important;
+	background-color: rgba(205,78,0,0.7) !important;
 }
 .yes{
 	background-color: rgb(64,255,64) !important;

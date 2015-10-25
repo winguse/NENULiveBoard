@@ -25,6 +25,7 @@ public class Board {
 	//2012-09-26 决定不在数据库里面存是不是FIRST BLOOD，原因是，如果发生Rejudge都话，FB得完全重新判断，而PC^2是从来不会告诉你什么时候开始Rejudge的。也就是说，实现都时候，我可能需要每次都判断全部数据，最简单和复杂度可以接受都，都要写个堆来维护，所以，这部分运算了扔给Javascript。
 	public final static int RUNSTATUS_PEDDING = 2;
 	public final static int RUNSTATUS_NO = 3;
+	public final static int RUNSTATUS_PEDDING_JUDGED = 11;
 	public final static int RUNSTATUS_DELETED = -1;
 	public final static int RUNSTATUS_UNDEFINE = -2;
 	
@@ -85,7 +86,7 @@ public class Board {
 			Properties p = new Properties();
 			p.setProperty("driverClassName", "com.mysql.jdbc.Driver");
 			p.setProperty("url", "jdbc:mysql://localhost:3306/ContestBoard");
-			p.setProperty("password", "i love shuxiao");
+			p.setProperty("password", "your db credential goes here");
 			p.setProperty("username", "ContestBoard");
 			p.setProperty("maxActive", "2");
 			p.setProperty("maxIdle", "2");

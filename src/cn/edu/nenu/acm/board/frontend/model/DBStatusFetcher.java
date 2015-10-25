@@ -53,11 +53,14 @@ public class DBStatusFetcher {
 					} else {
 						s.add("");
 					}
-					if (rs.getLong("rTime") > freezeTime
-							&& !"F".equals(rs.getString("rDescription")))
-						s.add(RUNSTATUS_PEDDING);
-					else
+					if (rs.getLong("rTime") > freezeTime && !"F".equals(rs.getString("rDescription"))){
+						if(rs.getInt("rStatus") == RUNSTATUS_PEDDING)
+							s.add(RUNSTATUS_PEDDING);
+						else
+							s.add(RUNSTATUS_PEDDING_JUDGED);
+					}else{
 						s.add(rs.getInt("rStatus"));
+					}
 					s.add(rs.getLong("rTime"));
 					s.add(rs.getInt("rNumber"));
 					if (detailStatus) {

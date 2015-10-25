@@ -40,8 +40,8 @@ public class RunsListener implements IRunEventListener, IRunListenerControler {
 
 	protected boolean begined = false;
 
-	protected String login = "scoreboard1";
-	protected String password = "sbacmvic";
+	protected String login = "scoreboard2";
+	protected String password = "ygfsxz";
 
 	protected PrintStream out = null;
 	protected Connection conn = null;

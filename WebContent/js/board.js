@@ -5,12 +5,12 @@
  * @author Winguse
  */
 "use strict";
-var PER_PENALTY = 20,ANIMATE_TIME=5000,MAX_ANIMATE_QUE=15,MAX_QUE_POP_TO=0,GOLD=17,SLIVER=52,BRONZE=103;
+var PER_PENALTY = 20,ANIMATE_TIME=2500,MAX_ANIMATE_QUE=60,MAX_QUE_POP_TO=0,GOLD=22,SLIVER=66,BRONZE=132;
 /**
  * Status
  * 状态宏定义，话说到现在，我都不知道怎样在js里面写静态变量，有同学告诉我么？答案：写到prototype里面，虽然不是常量，但是是静态，但是是全局的。
  */
-var RUNSTATUS_YES = 0, RUNSTATUS_FIRST_BLOOD = 1, RUNSTATUS_PEDDING = 2, RUNSTATUS_NO = 3, RUNSTATUS_DELETED = -1, RUNSTATUS_UNDEFINE = -2;
+var RUNSTATUS_YES = 0, RUNSTATUS_FIRST_BLOOD = 1, RUNSTATUS_PEDDING = 2, RUNSTATUS_NO = 3, RUNSTATUS_DELETED = -1, RUNSTATUS_UNDEFINE = -2, RUNSTATUS_PEDDING_JUDGED = 11;
 /**
  * Status 对象
  * 
@@ -166,6 +166,10 @@ Problem.prototype.updateStatus = function(status) {// ??这里是不是要弄个
 			} else if (s.status == RUNSTATUS_PEDDING) {
 				$teamProblem.addClass("pedding");
 				$teamProblem.attr("title","Pedding"+descriptionString);
+				$teamProblem.text(triedCount+"/--");
+			}else if (s.status == RUNSTATUS_PEDDING_JUDGED){
+				$teamProblem.addClass("judged");
+				$teamProblem.attr("title","Judged"+descriptionString);
 				$teamProblem.text(triedCount+"/--");
 			}else{//如果是delete的话，s是删掉的，没办法被读取出来的，如果有别的状态，那么算别的，否则就是空的
 				$teamProblem.attr("title","");
@@ -339,13 +343,13 @@ Team.prototype.updatePos =function(){return;
 Board.prototype.showTeamInfo=function(tid){
 	var $movingTeamInfo=$("#movingTeamInfo");
 	var team=this.teams[tid];
-	$movingTeamInfo.fadeIn(500);
+	$movingTeamInfo.fadeIn(100);
 	$movingTeamInfo.find(".teamEnglishName").text(team.en);
 	$movingTeamInfo.find(".teamChineseName").text(team.cn);
 	$movingTeamInfo.find(".fromRank").text(team.lastRank);
 	$movingTeamInfo.find(".toRank").text(team.accepted>0?team.teamRank:" -- ");
 	$movingTeamInfo.find(".school").html(team.school.en.xss()+"<br/><small>"+team.school.cn.xss()+"</small>");
-	$movingTeamInfo.find(".coach").html(getPersonHtml(team.coach));//TODO
+	$movingTeamInfo.find(".coach").html(team.coach.cn.xss());//TODO
 	var teamMembersHtml="";
 	for(var i in team.teamMembers){
 		teamMembersHtml+="<li>"+getPersonHtml(team.teamMembers[i])+"</li>";
@@ -353,7 +357,7 @@ Board.prototype.showTeamInfo=function(tid){
 	$movingTeamInfo.find(".teamMembers>ol").html(teamMembersHtml);
 };
 Board.prototype.closeTeamInfo=function(){
-	$("#movingTeamInfo").fadeOut(500);
+	$("#movingTeamInfo").fadeOut(100);
 };
 /**
  * 移动两个队伍在网页上面的位置
@@ -402,10 +406,10 @@ Board.prototype.moveTeam=function (moveInfo,noAnimate){
 			$from.css("left","");
 			setTimeout(function(){
 				I.closeTeamInfo();
-			},2500);
+			},500);
 			setTimeout(function(){
 				I.moveFinshed=true;
-			},3000);
+			},500);
 		});
 		$toTmp.animate({height:height},ANIMATE_TIME);
 	}
@@ -469,6 +473,7 @@ function Board() {
 	
 	var arrTid=new Array();
 	for ( var tid in pc2_teams.teams) {// 引用全局了
+		pc2_teams.teams[tid] = pc2_teams.teams[tid].trim();
 		var cs_team = cs_boardinfo.teams[pc2_teams.teams[tid]];// ContestService里面传过来的查询键是displayname
 		if (cs_team === undefined) {
 			log("赛事系统数据中没有对应的队伍：" + pc2_teams.teams[tid]);
